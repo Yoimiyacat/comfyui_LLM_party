@@ -373,20 +373,106 @@ def dispatch_tool(tool_name: str, tool_params: dict) -> str:
         ret = traceback.format_exc()
     return str(ret)
 
+def is_azure_cognitiveservices_url(base_url):
+    """True if base_url is Azure Cognitive Services / Responses API (no path suffix allowed)."""
+    if not base_url:
+        return False
+    return "cognitiveservices.azure.com" in base_url or (
+        "openai/responses" in base_url and "api-version=" in base_url
+    )
+
+
+def parse_azure_endpoint_and_version(base_url, default_api_version="2024-12-01-preview"):
+    """Return (azure_endpoint, api_version) from Azure base_url. Endpoint ends with /."""
+    from urllib.parse import urlparse, parse_qs
+    parsed = urlparse(base_url)
+    azure_endpoint = f"{parsed.scheme}://{parsed.netloc}/"
+    api_version = default_api_version
+    if parsed.query:
+        qs = parse_qs(parsed.query)
+        if "api-version" in qs and qs["api-version"]:
+            api_version = qs["api-version"][0].rstrip("/")
+    elif "api-version=" in base_url:
+        api_version = base_url.split("api-version=")[-1].split("&")[0].split("/")[0].strip().rstrip("/")
+    return azure_endpoint, api_version
+
+
 def ensure_version_suffix(base_url):
-    """
-    确保 base_url 以 '/v<n>/' 结尾，其中 n 是数字。
-    如果不是这样，则添加 '/v1/' 到末尾。
-    """
-    # 正则表达式匹配 '/v<n>/' 其中 <n> 是任意字符
+    """Ensure base_url ends with /v<n>/; return as-is for Azure Cognitive Services / Responses API."""
+    if is_azure_cognitiveservices_url(base_url):
+        return base_url
     match = re.search(r'/v(.+)/$', base_url)
-    
     if not match:
-        # 如果没有匹配到，则添加 '/v1/'
         if not base_url.endswith('/'):
             base_url += '/'
         base_url += 'v1/'
     return base_url
+
+
+class _ResponsesAPIChatClient:
+    """POST to Azure openai/responses URL with chat-completions body (no /chat/completions path)."""
+    def __init__(self, api_key, base_url):
+        self.api_key = api_key
+        self.base_url = base_url.rstrip("/")
+        self.chat = type("ChatNS", (), {"completions": type("Completions", (), {"create": self._create})()})()
+
+    def _create(self, model=None, messages=None, stream=False, **kwargs):
+        api_kw = dict(kwargs)
+        if "max_tokens" in api_kw:
+            api_kw["max_output_tokens"] = api_kw.pop("max_tokens")
+        for key in ("temperature",):
+            api_kw.pop(key, None)
+        body = {"model": model, "input": messages, "stream": stream, **api_kw}
+        url = self.base_url
+        headers = {"Authorization": "Bearer " + self.api_key, "Content-Type": "application/json"}
+        print("[Responses API] POST", url)
+        print("[Responses API] request body:", json.dumps(body, ensure_ascii=False, indent=2))
+        r = requests.post(url, json=body, headers=headers, timeout=60, stream=stream)
+        if r.status_code >= 400:
+            print("[Responses API] error status:", r.status_code)
+            print("[Responses API] response body:", (r.text[:2000] if len(r.text) > 2000 else r.text))
+        r.raise_for_status()
+        if stream:
+            def gen():
+                for line in r.iter_lines():
+                    if line and line.startswith(b"data: "):
+                        line = line[6:].strip()
+                        if line == b"[DONE]":
+                            break
+                        try:
+                            d = json.loads(line)
+                            if "choices" in d and d["choices"]:
+                                delta = d["choices"][0].get("delta", {})
+                                yield type("Chunk", (), {"choices": [type("C", (), {"delta": type("D", (), delta)()})()]})()
+                        except Exception:
+                            pass
+            return gen()
+        j = r.json()
+        choices = j.get("choices", [])
+        if not choices and "output" in j:
+            out = j["output"]
+            text = ""
+            if isinstance(out, list):
+                for item in out:
+                    if isinstance(item, dict):
+                        if "content" in item and isinstance(item["content"], list):
+                            for part in item["content"]:
+                                if isinstance(part, dict) and part.get("type") == "output_text":
+                                    text += part.get("text", "")
+                                elif isinstance(part, dict) and "text" in part:
+                                    text += part.get("text", "")
+                        elif "text" in item:
+                            text += item.get("text", "")
+                    elif isinstance(item, str):
+                        text += item
+            elif isinstance(out, str):
+                text = out
+            choices = [{"message": {"content": text, "reasoning_content": "", "tool_calls": None}}]
+        msg = choices[0].get("message", {}) if choices else {}
+        return type("Resp", (), {"choices": [type("C", (), {"message": type("M", (), {"content": msg.get("content", ""), "reasoning_content": msg.get("reasoning_content", ""), "tool_calls": msg.get("tool_calls")})()})]})()
+
+
+
 
 class Chat:
     def __init__(self, model_name, apikey, baseurl) -> None:
@@ -475,6 +561,16 @@ class Chat:
                     azure_endpoint=azure_endpoint,
                 )
                 openai_client = azure
+            elif is_azure_cognitiveservices_url(self.baseurl):
+                if "openai/responses" in self.baseurl:
+                    openai_client = _ResponsesAPIChatClient(api_key=self.apikey, base_url=self.baseurl)
+                else:
+                    azure_endpoint, api_version = parse_azure_endpoint_and_version(self.baseurl)
+                    openai_client = AzureOpenAI(
+                        api_key=self.apikey,
+                        api_version=api_version,
+                        azure_endpoint=azure_endpoint,
+                    )
             new_message = {"role": "user", "content": user_prompt}
             history.append(new_message)
             print(history)
@@ -1642,7 +1738,7 @@ class LLM:
                 )
 
     @classmethod
-    def original_IS_CHANGED(s):
+    def original_IS_CHANGED(s, **kwargs):
         # 生成当前时间的哈希值
         hash_value = hashlib.md5(str(datetime.datetime.now()).encode()).hexdigest()
         return hash_value
@@ -1983,7 +2079,7 @@ class LLM_local_loader:
         )
 
     @classmethod
-    def original_IS_CHANGED(s):
+    def original_IS_CHANGED(s, **kwargs):
         # 生成当前时间的哈希值
         hash_value = hashlib.md5(str(datetime.datetime.now()).encode()).hexdigest()
         return hash_value
@@ -2102,7 +2198,7 @@ class easy_LLM_local_loader:
         )
 
     @classmethod
-    def original_IS_CHANGED(s):
+    def original_IS_CHANGED(s, **kwargs):
         # 生成当前时间的哈希值
         hash_value = hashlib.md5(str(datetime.datetime.now()).encode()).hexdigest()
         return hash_value
@@ -2809,7 +2905,7 @@ class LLM_local:
                 )
 
     @classmethod
-    def original_IS_CHANGED(s):
+    def original_IS_CHANGED(s, **kwargs):
         # 生成当前时间的哈希值
         hash_value = hashlib.md5(str(datetime.datetime.now()).encode()).hexdigest()
         return hash_value
