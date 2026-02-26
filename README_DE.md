@@ -2,7 +2,7 @@
 
 <div align="center">
   <a href="https://space.bilibili.com/26978344">bilibili</a> ·
-  <a href="https://www.youtube.com/@LLM-party">youtube</a> ·
+  <a href="https://www.youtube.com/@comfyui-LLM-party">youtube</a> ·
   <a href="https://github.com/heshengtao/Let-LLM-party">Texttutorial</a> ·
   <a href="https://pan.quark.cn/s/190b41f3bbdb">Cloud-Disk-Adresse</a> ·
   <a href="img/Q群.jpg">QQ-Gruppe</a> ·
@@ -74,7 +74,7 @@ ComfyUI LLM Party bietet Ihnen von den grundlegendsten LLM-Multitoolaufrufen und
 <a href="https://space.bilibili.com/26978344">
   <img src="img/B.png" width="100" height="100" style="border-radius: 80%; overflow: hidden;" alt="octocat"/>
 </a>
-<a href="https://www.youtube.com/@LLM-party">
+<a href="https://www.youtube.com/@comfyui-LLM-party">
   <img src="img/YT.png" width="100" height="100" style="border-radius: 80%; overflow: hidden;" alt="octocat"/>
 </a>
 
@@ -115,7 +115,8 @@ ComfyUI LLM Party bietet Ihnen von den grundlegendsten LLM-Multitoolaufrufen und
 * [Baidu Cloud Adresse](https://pan.baidu.com/share/init?surl=T4aEB4HumdJ7iVbvsv1vzA&pwd=qyhu), Entnahmecode: qyhu
 
 ## Download
-Verwenden Sie eine der folgenden Methoden zur Installation
+* Sie können die Sprache in `config.ini` konfigurieren, derzeit nur Chinesisch (zh_CN) und Englisch (en_US), die Standardeinstellung ist die Sprache Ihres Systems.
+* Verwenden Sie eine der folgenden Methoden zur Installation
 ### Methode eins:
 1. Suchen Sie im [ComfyUI-Manager](https://github.com/ltdrdata/ComfyUI-Manager) nach `comfyui_LLM_party` und installieren Sie es mit einem Klick.
 2. Starten Sie ComfyUI neu.
@@ -136,6 +137,7 @@ Verwenden Sie eine der folgenden Methoden zur Installation
 ## Konfiguration
 * Sie können die Sprache in der Datei `config.ini` konfigurieren, gegenwärtig sind nur Chinesisch (zh_CN) und Englisch (en_US) verfügbar, die Standardeinstellung entspricht der Sprache Ihres Systems.
 * Sie können die Schnellinstallation in der Datei `config.ini` konfigurieren, `fast_installed` hat standardmäßig den Wert `False`. Wenn Sie das GGUF-Modell nicht verwenden müssen, können Sie es auf `True` einstellen.
+* In `config.ini` unter `[API_KEYS]` können Sie `default_api_model` (z. B. `gpt-4o-mini`) setzen. Wenn der Modellname des API-LLM-Ladeknotens auf `default` gesetzt ist, wird dieses Modell verwendet. So können Sie das Standard-API-Modell an einer Stelle wechseln, ohne Workflows zu ändern.
 * Du kannst eine der folgenden Methoden verwenden, um den APIKEY zu konfigurieren.
 ### Methode Eins:
 1. Öffne die Datei `config.ini` im Projektordner von `comfyui_LLM_party`.
@@ -143,7 +145,7 @@ Verwenden Sie eine der folgenden Methoden zur Installation
 3. Wenn du das Ollama-Modell verwendest, trage in `base_url` `http://127.0.0.1:11434/v1/` ein, in `openai_api_key` schreibe `ollama` und in `model_name` gib deinen Modellnamen ein, z. B.: llama3.
 4. Wenn du Google Search oder Bing Search Tools verwenden möchtest, gib in der `config.ini` deinen `google_api_key`, `cse_id` oder `bing_api_key` ein.
 5. Wenn du Bildeingaben für LLM verwenden möchtest, wird empfohlen, den Bilddienst imgBB zu nutzen. Trage in der `config.ini` deinen `imgbb_api` ein.
-6. Jedes Modell kann in der Datei `config.ini` separat konfiguriert werden. Du kannst die Datei `config.ini.example` als Referenz verwenden. Nachdem du alles konfiguriert hast, musst du nur noch `model_name` im Knoten eingeben.
+6. Jedes Modell kann in der Datei `config.ini` separat konfiguriert werden. Du kannst die Datei `config.ini.example` als Referenz verwenden. Nachdem du alles konfiguriert hast, musst du nur noch `model_name` im Knoten eingeben. Du kannst auch `model_name` auf `default` setzen, um das `default_api_model` aus `config.ini` zu verwenden.
 
 ### Methode Zwei:
 1. Öffne die Benutzeroberfläche von ComfyUI.
@@ -198,7 +200,7 @@ Wenn es Probleme mit dem Plugin gibt oder Sie andere Fragen haben, sind Sie herz
 
 ### Folgen Sie uns
 1. Wenn Sie die neuesten Funktionen dieses Projekts kontinuierlich verfolgen möchten, heißen wir Sie herzlich willkommen, unseren Bilibili-Account zu abonnieren: [派酱](https://space.bilibili.com/26978344)
-2. [youtube@LLM-party](https://www.youtube.com/@LLM-party)
+2. [youtube@comfyui-LLM-party](https://www.youtube.com/@comfyui-LLM-party)
 
 
 ## Sternenverlauf

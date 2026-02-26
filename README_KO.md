@@ -2,7 +2,7 @@
 
 <div align="center">
   <a href="https://space.bilibili.com/26978344">bilibili</a> ·
-  <a href="https://www.youtube.com/@LLM-party">youtube</a> ·
+  <a href="https://www.youtube.com/@comfyui-LLM-party">youtube</a> ·
   <a href="https://github.com/heshengtao/Let-LLM-party">텍스트 튜토리얼</a> ·
   <a href="https://pan.quark.cn/s/190b41f3bbdb">클라우드 디스크 주소</a> ·
   <a href="img/Q群.jpg">QQ 그룹</a> ·
@@ -74,7 +74,7 @@ ComfyUI LLM Party는 가장 기본적인 LLM 다중 도구 호출, 역할 설정
 <a href="https://space.bilibili.com/26978344">
   <img src="img/B.png" width="100" height="100" style="border-radius: 80%; overflow: hidden;" alt="octocat"/>
 </a>
-<a href="https://www.youtube.com/@LLM-party">
+<a href="https://www.youtube.com/@comfyui-LLM-party">
   <img src="img/YT.png" width="100" height="100" style="border-radius: 80%; overflow: hidden;" alt="octocat"/>
 </a>
 
@@ -116,7 +116,8 @@ ComfyUI LLM Party는 가장 기본적인 LLM 다중 도구 호출, 역할 설정
 * [百度云地址](https://pan.baidu.com/share/init?surl=T4aEB4HumdJ7iVbvsv1vzA&pwd=qyhu)，提取码：qyhu
 
 ## 다운로드
-다음 방법 중 하나를 사용하여 설치하세요.
+* `config.ini`에서 언어를 설정할 수 있습니다. 현재는 중국어(zh_CN)와 영어(en_US)만 지원하며, 기본값은 시스템 언어입니다.
+* 다음 방법 중 하나를 사용하여 설치하세요.
 ### 방법 1:
 1. [comfyui 관리자](https://github.com/ltdrdata/ComfyUI-Manager)에서 `comfyui_LLM_party`를 검색하여 한 번의 클릭으로 설치합니다.
 2. comfyui를 재시작합니다.
@@ -137,6 +138,7 @@ ComfyUI LLM Party는 가장 기본적인 LLM 다중 도구 호출, 역할 설정
 ## 구성
 * `config.ini`에서 언어를 설정할 수 있습니다. 현재 지원되는 언어는 중국어(zh_CN)와 영어(en_US) 두 가지이며, 기본값은 시스템 언어입니다.
 * `config.ini`에서 빠른 설치 여부를 설정할 수 있습니다. `fast_installed`의 기본값은 `False`이며, GGUF 모델을 사용하지 않는 경우 `True`로 설정할 수 있습니다.
+* `config.ini`의 `[API_KEYS]`에서 `default_api_model`(예: `gpt-4o-mini`)을 설정할 수 있습니다. API LLM 로더의 모델 이름이 `default`로 설정되면 이 모델이 사용됩니다. 워크플로우를 변경하지 않고 한 곳에서 기본 API 모델을 전환할 수 있습니다.
 * 다음 방법 중 하나로 APIKEY를 설정할 수 있습니다.
 ### 방법 1:
 1. `comfyui_LLM_party` 프로젝트 폴더 내의 `config.ini` 파일을 엽니다.
@@ -144,7 +146,7 @@ ComfyUI LLM Party는 가장 기본적인 LLM 다중 도구 호출, 역할 설정
 3. ollama 모델을 사용하는 경우, `base_url`에 `http://127.0.0.1:11434/v1/`를 입력하고, `openai_api_key`에 `ollama`를 입력하며, `model_name`에 모델 이름(예: llama3)을 입력합니다.
 4. 구글 검색 또는 빙 검색 도구를 사용하려면 `config.ini`에 `google_api_key`, `cse_id` 또는 `bing_api_key`를 입력합니다.
 5. 이미지 입력 LLM을 사용하려면, 이미지 호스팅 서비스인 imgbb를 추천하며, `config.ini`에 `imgbb_api`를 입력합니다.
-6. 각 모델은 `config.ini` 파일에서 개별적으로 설정할 수 있으며, `config.ini.example` 파일을 참조하여 작성할 수 있습니다. 설정이 완료되면, 노드에서 `model_name`을 입력하기만 하면 됩니다.
+6. 각 모델은 `config.ini` 파일에서 개별적으로 설정할 수 있으며, `config.ini.example` 파일을 참조하여 작성할 수 있습니다. 설정이 완료되면, 노드에서 `model_name`을 입력하기만 하면 됩니다. `model_name`을 `default`로 설정하여 `config.ini`의 `default_api_model`을 사용할 수도 있습니다.
 
 ### 방법 2:
 1. comfyui 인터페이스를 엽니다.
@@ -200,7 +202,7 @@ ComfyUI LLM Party는 가장 기본적인 LLM 다중 도구 호출, 역할 설정
 
 ### 저희를 팔로우하세요
 1. 본 프로젝트의 최신 기능을 지속적으로 관심 가져주시길 원하신다면, B站 계정에 팔로우해 주세요：[派酱](https://space.bilibili.com/26978344)
-2. [youtube@LLM-party](https://www.youtube.com/@LLM-party)
+2. [youtube@comfyui-LLM-party](https://www.youtube.com/@comfyui-LLM-party)
 
 ## 스타 기록
 

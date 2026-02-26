@@ -409,6 +409,68 @@ def ensure_version_suffix(base_url):
     return base_url
 
 
+def _redact_base64_in_json(obj, max_b64_len=80):
+    """Return a copy of obj with base64 data URLs shortened for logging (e.g. data:image/png;base64,... -> [...redacted])."""
+    if isinstance(obj, dict):
+        return {k: _redact_base64_in_json(v, max_b64_len) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [_redact_base64_in_json(v, max_b64_len) for v in obj]
+    if isinstance(obj, str) and obj.startswith("data:") and ";base64," in obj:
+        prefix, _, b64 = obj.partition(";base64,")
+        if len(b64) > max_b64_len:
+            return f"{prefix};base64,[...redacted {len(b64)} chars]"
+    return obj
+
+
+def _log_history(history, max_log_chars=3000):
+    """Log history with base64 redacted and total length capped to avoid huge console output."""
+    redacted = _redact_base64_in_json(history)
+    s = json.dumps(redacted, ensure_ascii=False, indent=2)
+    if len(s) > max_log_chars:
+        s = s[:max_log_chars] + "\n... [truncated]"
+    print("[LLM] history (base64 redacted):", s)
+
+
+def _messages_to_responses_api_input(messages):
+    """Convert Chat Completions messages to Responses API input (content types: input_text, input_image)."""
+    if not messages:
+        return messages
+    out = []
+    for msg in messages:
+        role = msg.get("role")
+        content = msg.get("content")
+        if content is None:
+            out.append(msg)
+            continue
+        if isinstance(content, str):
+            out.append({"role": role, "content": [{"type": "input_text", "text": content}]})
+            continue
+        if isinstance(content, list):
+            new_parts = []
+            for part in content:
+                if not isinstance(part, dict):
+                    continue
+                t = part.get("type")
+                if t == "text":
+                    new_parts.append({"type": "input_text", "text": part.get("text", "")})
+                elif t == "image_url":
+                    image_url = part.get("image_url") or {}
+                    url = image_url.get("url") if isinstance(image_url, dict) else str(image_url)
+                    detail = image_url.get("detail", "auto") if isinstance(image_url, dict) else "auto"
+                    # Responses API expects image_url as a string (URL or data URL), not an object
+                    new_parts.append({
+                        "type": "input_image",
+                        "image_url": url,
+                        "detail": detail,
+                    })
+                else:
+                    new_parts.append(part)
+            out.append({"role": role, "content": new_parts})
+            continue
+        out.append(msg)
+    return out
+
+
 class _ResponsesAPIChatClient:
     """POST to Azure openai/responses URL with chat-completions body (no /chat/completions path)."""
     def __init__(self, api_key, base_url):
@@ -422,11 +484,14 @@ class _ResponsesAPIChatClient:
             api_kw["max_output_tokens"] = api_kw.pop("max_tokens")
         for key in ("temperature",):
             api_kw.pop(key, None)
-        body = {"model": model, "input": messages, "stream": stream, **api_kw}
+        input_messages = _messages_to_responses_api_input(messages) if messages else messages
+        body = {"model": model, "input": input_messages, "stream": stream, **api_kw}
         url = self.base_url
         headers = {"Authorization": "Bearer " + self.api_key, "Content-Type": "application/json"}
         print("[Responses API] POST", url)
-        print("[Responses API] request body:", json.dumps(body, ensure_ascii=False, indent=2))
+        # Log body with base64 image data redacted to avoid huge output
+        log_body = _redact_base64_in_json(body, max_b64_len=80)
+        print("[Responses API] request body:", json.dumps(log_body, ensure_ascii=False, indent=2))
         r = requests.post(url, json=body, headers=headers, timeout=60, stream=stream)
         if r.status_code >= 400:
             print("[Responses API] error status:", r.status_code)
@@ -573,7 +638,7 @@ class Chat:
                     )
             new_message = {"role": "user", "content": user_prompt}
             history.append(new_message)
-            print(history)
+            _log_history(history)
             reasoning_content = ""
             if tools is not None:
                 response = openai_client.chat.completions.create(
@@ -944,7 +1009,7 @@ class aisuite_Chat:
                     break
             new_message = {"role": "user", "content": user_prompt}
             history.append(new_message)
-            print(history)
+            _log_history(history)
             reasoning_content = ""
             if tools is not None:
                 response = openai_client.chat.completions.create(
@@ -1178,7 +1243,7 @@ class LLM_api_loader:
     def INPUT_TYPES(s):
         return {
             "required": {
-                "model_name": ("STRING", {"default": "gpt-4o-mini","tooltip": "The name of the model, such as gpt-4o-mini."}),
+                "model_name": ("STRING", {"default": "default", "tooltip": "Model name (e.g. gpt-4o-mini). Use 'default' to use the model set in config.ini [API_KEYS] default_api_model."}),
             },
             "optional": {
                 "base_url": (
@@ -1210,11 +1275,13 @@ class LLM_api_loader:
     CATEGORY = "大模型派对（llm_party）/模型加载器（model loader）"
 
     def chatbot(self, model_name, base_url=None, api_key=None, is_ollama=False):
+        api_keys = load_api_keys(config_path)
+        if str(model_name).strip().lower() == "default":
+            model_name = (api_keys.get("default_api_model") or "gpt-4o-mini").strip() or "gpt-4o-mini"
         if is_ollama:
             openai.api_key = "ollama"
             openai.base_url = "http://127.0.0.1:11434/v1/"
         else:
-            api_keys = load_api_keys(config_path)
             if api_key != "":
                 openai.api_key = api_key
             elif model_name in config_key:

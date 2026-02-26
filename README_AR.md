@@ -2,7 +2,7 @@
 
 <div align="center">
   <a href="https://space.bilibili.com/26978344">bilibili</a> ·
-  <a href="https://www.youtube.com/@LLM-party">youtube</a> ·
+  <a href="https://www.youtube.com/@comfyui-LLM-party">youtube</a> ·
   <a href="https://github.com/heshengtao/Let-LLM-party">دليل النص</a> ·
   <a href="https://pan.quark.cn/s/190b41f3bbdb">عنوان القرص السحابي</a> ·
   <a href="img/Q群.jpg">مجموعة QQ</a> ·
@@ -74,7 +74,7 @@ ComfyUI LLM Party، من أبسط استدعاءات أدوات LLM المتعد
 <a href="https://space.bilibili.com/26978344">
   <img src="img/B.png" width="100" height="100" style="border-radius: 80%; overflow: hidden;" alt="octocat"/>
 </a>
-<a href="https://www.youtube.com/@LLM-party">
+<a href="https://www.youtube.com/@comfyui-LLM-party">
   <img src="img/YT.png" width="100" height="100" style="border-radius: 80%; overflow: hidden;" alt="octocat"/>
 </a>
 
@@ -115,7 +115,8 @@ ComfyUI LLM Party، من أبسط استدعاءات أدوات LLM المتعد
 * [رابط بايدو السحابي](https://pan.baidu.com/share/init?surl=T4aEB4HumdJ7iVbvsv1vzA&pwd=qyhu)، رمز الاستخراج: qyhu
 
 ## تحميل
-استخدم إحدى الطرق التالية للتثبيت
+* يمكنك تكوين اللغة في `config.ini`، حاليًا الصينية (zh_CN) والإنجليزية (en_US) فقط، الافتراضي هو لغة نظامك.
+* استخدم إحدى الطرق التالية للتثبيت
 ### الطريقة الأولى:
 1. ابحث عن `comfyui_LLM_party` في [مدير comfyui](https://github.com/ltdrdata/ComfyUI-Manager) وقم بالتثبيت بنقرة واحدة
 2. أعد تشغيل comfyui
@@ -136,6 +137,7 @@ ComfyUI LLM Party، من أبسط استدعاءات أدوات LLM المتعد
 ## الإعداد
 * يمكنك تكوين اللغة في `config.ini`، حاليًا لا توجد سوى لغتين، هما الصينية (zh_CN) والإنجليزية (en_US)، والإعداد الافتراضي هو لغة النظام الخاص بك.
 * يمكنك تكوين ما إذا كنت ترغب في التثبيت السريع في `config.ini`، حيث أن `fast_installed` هو `False` افتراضيًا، إذا كنت لا تحتاج إلى استخدام نموذج GGUF، يمكنك ضبطه على `True`.
+* في `config.ini` ضمن `[API_KEYS]` يمكنك تعيين `default_api_model` (مثل `gpt-4o-mini`). عندما يكون اسم النموذج في محمل API LLM مضبوطًا على `default`، يتم استخدام هذا النموذج. يتيح لك ذلك تبديل النموذج الافتراضي من مكان واحد دون تغيير سير العمل.
 * يمكنك استخدام واحدة من الطرق التالية لتكوين APIKEY
 ### الطريقة الأولى:
 1. افتح ملف `config.ini` في مجلد مشروع `comfyui_LLM_party`.
@@ -143,7 +145,7 @@ ComfyUI LLM Party، من أبسط استدعاءات أدوات LLM المتعد
 3. إذا كنت تستخدم نموذج ollama، أدخل في `base_url` `http://127.0.0.1:11434/v1/`، وفي `openai_api_key` أدخل `ollama`، وفي `model_name` أدخل اسم نموذجك، مثل: llama3.
 4. إذا كنت ترغب في استخدام أدوات بحث جوجل أو بينغ، أدخل `google_api_key` و `cse_id` أو `bing_api_key` في `config.ini`.
 5. إذا كنت ترغب في استخدام إدخال الصور في LLM، يُوصى باستخدام خدمة imgBB، أدخل `imgbb_api` الخاص بك في `config.ini`.
-6. يمكن تكوين كل نموذج بشكل منفصل في ملف `config.ini`، يمكنك الرجوع إلى ملف `config.ini.example` للملء. بعد تكوينك، تحتاج فقط إلى إدخال `model_name` في العقدة.
+6. يمكن تكوين كل نموذج بشكل منفصل في ملف `config.ini`، يمكنك الرجوع إلى ملف `config.ini.example` للملء. بعد تكوينك، تحتاج فقط إلى إدخال `model_name` في العقدة. يمكنك أيضًا تعيين `model_name` على `default` لاستخدام `default_api_model` من `config.ini`.
 
 ### الطريقة الثانية:
 1. افتح واجهة comfyui.
@@ -200,7 +202,7 @@ ComfyUI LLM Party، من أبسط استدعاءات أدوات LLM المتعد
 
 ### تابعونا
 1. إذا كنت ترغب في متابعة أحدث ميزات هذا المشروع، ندعوك لمتابعة حسابنا على بلي بلي: [派酱](https://space.bilibili.com/26978344)
-2. [youtube@LLM-party](https://www.youtube.com/@LLM-party)
+2. [youtube@comfyui-LLM-party](https://www.youtube.com/@comfyui-LLM-party)
 
 ## تاريخ النجوم
 

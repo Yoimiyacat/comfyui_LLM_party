@@ -2,7 +2,7 @@
 
 <div align="center">
   <a href="https://space.bilibili.com/26978344">bilibili</a> ·
-  <a href="https://www.youtube.com/@LLM-party">youtube</a> ·
+  <a href="https://www.youtube.com/@comfyui-LLM-party">youtube</a> ·
   <a href="https://github.com/heshengtao/Let-LLM-party">Tutorial escrito</a> ·
   <a href="https://pan.quark.cn/s/190b41f3bbdb">Dirección de disco en la nube</a> ·
   <a href="img/Q群.jpg">Grupo QQ</a> ·
@@ -74,7 +74,7 @@ ComfyUI LLM Party permite desde la llamada a múltiples herramientas LLM desde l
 <a href="https://space.bilibili.com/26978344">
   <img src="img/B.png" width="100" height="100" style="border-radius: 80%; overflow: hidden;" alt="octocat"/>
 </a>
-<a href="https://www.youtube.com/@LLM-party">
+<a href="https://www.youtube.com/@comfyui-LLM-party">
   <img src="img/YT.png" width="100" height="100" style="border-radius: 80%; overflow: hidden;" alt="octocat"/>
 </a>
 
@@ -115,7 +115,8 @@ ComfyUI LLM Party permite desde la llamada a múltiples herramientas LLM desde l
 * [Dirección de Baidu Cloud](https://pan.baidu.com/share/init?surl=T4aEB4HumdJ7iVbvsv1vzA&pwd=qyhu), código de extracción: qyhu
 
 ## Descarga
-Instale utilizando uno de los siguientes métodos:
+* Puede configurar el idioma en `config.ini`, actualmente solo chino (zh_CN) e inglés (en_US), el predeterminado es el idioma de su sistema.
+* Instale utilizando uno de los siguientes métodos:
 ### Método Uno:
 1. Busque `comfyui_LLM_party` en [el administrador de ComfyUI](https://github.com/ltdrdata/ComfyUI-Manager) e instálelo con un solo clic.
 2. Reinicie ComfyUI.
@@ -136,6 +137,7 @@ Instale utilizando uno de los siguientes métodos:
 ## Configuración
 * Se puede configurar el idioma en `config.ini`, actualmente solo hay dos opciones: chino (zh_CN) e inglés (en_US), siendo el idioma predeterminado el de tu sistema.
 * Se puede configurar en `config.ini` si se desea una instalación rápida; `fast_installed` está configurado por defecto como `False`. Si no necesitas utilizar el modelo GGUF, puedes establecerlo en `True`.
+* En `config.ini` en la sección `[API_KEYS]` puede establecer `default_api_model` (por ejemplo `gpt-4o-mini`). Cuando el nombre del modelo del cargador API LLM esté establecido en `default`, se utilizará este modelo. Así puede cambiar el modelo API predeterminado en un solo lugar sin modificar los flujos de trabajo.
 * Puede utilizar uno de los siguientes métodos para configurar el APIKEY.
 ### Método uno:
 1. Abra el archivo `config.ini` en la carpeta del proyecto `comfyui_LLM_party`.
@@ -143,7 +145,7 @@ Instale utilizando uno de los siguientes métodos:
 3. Si utiliza el modelo ollama, ingrese `http://127.0.0.1:11434/v1/` en `base_url`, `ollama` en `openai_api_key`, y el nombre de su modelo en `model_name`, por ejemplo: llama3.
 4. Si desea utilizar herramientas de búsqueda de Google o Bing, ingrese su `google_api_key`, `cse_id` o `bing_api_key` en `config.ini`.
 5. Si desea utilizar entrada de imágenes para LLM, se recomienda usar el servicio de alojamiento de imágenes imgbb, ingresando su `imgbb_api` en `config.ini`.
-6. Cada modelo se puede configurar individualmente en el archivo `config.ini`, y puede consultar el archivo `config.ini.example` para completar la configuración. Una vez que esté configurado, solo necesita ingresar `model_name` en el nodo.
+6. Cada modelo se puede configurar individualmente en el archivo `config.ini`, y puede consultar el archivo `config.ini.example` para completar la configuración. Una vez que esté configurado, solo necesita ingresar `model_name` en el nodo. También puede establecer `model_name` en `default` para usar el `default_api_model` de `config.ini`.
 
 ### Método dos:
 1. Abra la interfaz de comfyui.
@@ -199,7 +201,7 @@ Si hay problemas con el complemento o si tiene alguna otra pregunta, le damos la
 
 ### Síguenos
 1. Si desea mantenerse informado sobre las últimas funciones de este proyecto, le invitamos a seguir nuestra cuenta de Bilibili: [派酱](https://space.bilibili.com/26978344)
-2. [youtube@LLM-party](https://www.youtube.com/@LLM-party)
+2. [youtube@comfyui-LLM-party](https://www.youtube.com/@comfyui-LLM-party)
 
 ## Historial de estrellas
 

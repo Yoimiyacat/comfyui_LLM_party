@@ -140,6 +140,7 @@ ComfyUI LLM Party, from the most basic LLM multi-tool call, role setting to quic
 ## Configuration
 * The language can be configured in `config.ini`, currently only Chinese (zh_CN) and English (en_US) are available, with the default set to your system language.
 * In `config.ini`, you can configure whether to enable fast installation. The `fast_installed` option defaults to `False`, and if you do not require the usage of the GGUF model, it can be set to `True`.
+* In `config.ini` under `[API_KEYS]`, you can set `default_api_model` (e.g. `gpt-4o-mini`). When the API LLM loader's model name is set to `default`, this model is used. This lets you switch the default API model in one place without changing workflows.
 * APIKEY can be configured using one of the following methods
 ### Method 1:
 1. Open the `config.ini` file in the project folder of the `comfyui_LLM_party`.
@@ -147,7 +148,7 @@ ComfyUI LLM Party, from the most basic LLM multi-tool call, role setting to quic
 3. If you are using an ollama model, fill in `http://127.0.0.1:11434/v1/` in `base_url`, `ollama` in `openai_api_key`, and your model name in `model_name`, for example: `llama3`.
 4. If you want to use Google search or Bing search tools, enter your `google_api_key`, `cse_id` or `bing_api_key` in `config.ini`.
 5. If you want to use image input LLM, it is recommended to use image bed imgbb and enter your imgbb_api in `config.ini`.
-6. Each model can be configured separately in the `config.ini` file, which can be filled in by referring to the `config.ini.example` file. After you configure it, just enter `model_name` on the node.
+6. Each model can be configured separately in the `config.ini` file, which can be filled in by referring to the `config.ini.example` file. After you configure it, just enter `model_name` on the node. You can also set `model_name` to `default` to use the `default_api_model` from `config.ini`.
 
 
 ### Method 2:

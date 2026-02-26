@@ -2,7 +2,7 @@
 
 <div align="center">
   <a href="https://space.bilibili.com/26978344">bilibili</a> ·
-  <a href="https://www.youtube.com/@LLM-party">youtube</a> ·
+  <a href="https://www.youtube.com/@comfyui-LLM-party">youtube</a> ·
   <a href="https://github.com/heshengtao/Let-LLM-party">Tutoriel écrit</a> ·
   <a href="https://pan.quark.cn/s/190b41f3bbdb">Adresse du disque cloud</a> ·
   <a href="img/Q群.jpg">Groupe QQ</a> ·
@@ -74,7 +74,7 @@ ComfyUI LLM Party permet de construire rapidement votre propre assistant AI pers
 <a href="https://space.bilibili.com/26978344">
   <img src="img/B.png" width="100" height="100" style="border-radius: 80%; overflow: hidden;" alt="octocat"/>
 </a>
-<a href="https://www.youtube.com/@LLM-party">
+<a href="https://www.youtube.com/@comfyui-LLM-party">
   <img src="img/YT.png" width="100" height="100" style="border-radius: 80%; overflow: hidden;" alt="octocat"/>
 </a>
 
@@ -115,7 +115,8 @@ ComfyUI LLM Party permet de construire rapidement votre propre assistant AI pers
 * [Adresse Baidu Cloud](https://pan.baidu.com/share/init?surl=T4aEB4HumdJ7iVbvsv1vzA&pwd=qyhu), code d'extraction : qyhu
 
 ## Téléchargement
-Installez en utilisant l'une des méthodes suivantes
+* Vous pouvez configurer la langue dans `config.ini`, actuellement uniquement le chinois (zh_CN) et l'anglais (en_US), la valeur par défaut est la langue de votre système.
+* Installez en utilisant l'une des méthodes suivantes
 ### Méthode 1 :
 1. Recherchez `comfyui_LLM_party` dans le [gestionnaire ComfyUI](https://github.com/ltdrdata/ComfyUI-Manager) et installez-le d'un seul clic
 2. Redémarrez ComfyUI
@@ -136,6 +137,7 @@ Installez en utilisant l'une des méthodes suivantes
 ## Configuration
 * Vous pouvez configurer la langue dans le fichier `config.ini`, actuellement seules le chinois (zh_CN) et l'anglais (en_US) sont disponibles, la langue par défaut étant celle de votre système.
 * Vous pouvez configurer l'installation rapide dans le fichier `config.ini`, `fast_installed` est par défaut `False`. Si vous n'avez pas besoin d'utiliser le modèle GGUF, vous pouvez le régler sur `True`.
+* Dans `config.ini` sous `[API_KEYS]`, vous pouvez définir `default_api_model` (par ex. `gpt-4o-mini`). Lorsque le nom du modèle du chargeur API LLM est réglé sur `default`, ce modèle est utilisé. Vous pouvez ainsi changer le modèle API par défaut en un seul endroit sans modifier les workflows.
 * Vous pouvez configurer l'APIKEY en utilisant l'une des méthodes suivantes :
 ### Méthode 1 :
 1. Ouvrez le fichier `config.ini` dans le dossier du projet `comfyui_LLM_party`.
@@ -143,7 +145,7 @@ Installez en utilisant l'une des méthodes suivantes
 3. Si vous utilisez le modèle ollama, entrez `http://127.0.0.1:11434/v1/` dans `base_url`, `ollama` dans `openai_api_key`, et le nom de votre modèle dans `model_name`, par exemple : llama3.
 4. Si vous souhaitez utiliser les outils de recherche Google ou Bing, saisissez votre `google_api_key`, `cse_id` ou `bing_api_key` dans `config.ini`.
 5. Si vous désirez utiliser des entrées d'images pour LLM, il est recommandé d'utiliser le service d'hébergement d'images imgbb, et d'indiquer votre `imgbb_api` dans `config.ini`.
-6. Chaque modèle peut être configuré individuellement dans le fichier `config.ini`, vous pouvez vous référer au fichier `config.ini.example` pour vous aider. Une fois que vous avez terminé la configuration, il vous suffit de saisir `model_name` dans le nœud.
+6. Chaque modèle peut être configuré individuellement dans le fichier `config.ini`, vous pouvez vous référer au fichier `config.ini.example` pour vous aider. Une fois que vous avez terminé la configuration, il vous suffit de saisir `model_name` dans le nœud. Vous pouvez aussi définir `model_name` sur `default` pour utiliser le `default_api_model` de `config.ini`.
 
 ### Méthode 2 :
 1. Ouvrez l'interface comfyui.
@@ -199,7 +201,7 @@ Si vous rencontrez des problèmes avec le plugin ou si vous avez d'autres questi
 
 ### Suivez-nous
 1. Si vous souhaitez rester informé des dernières fonctionnalités de ce projet, n'hésitez pas à suivre notre compte Bilibili : [派酱](https://space.bilibili.com/26978344)
-2. [youtube@LLM-party](https://www.youtube.com/@LLM-party)
+2. [youtube@comfyui-LLM-party](https://www.youtube.com/@comfyui-LLM-party)
 
 ## Historique des étoiles
 

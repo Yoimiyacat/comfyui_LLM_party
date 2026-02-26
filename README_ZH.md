@@ -139,6 +139,7 @@ ComfyUI LLM Party，从最基础的 LLM 多工具调用、角色设定快速搭�
 ## 配置
 * 可以在`config.ini`中配置语言，目前只有中文（zh_CN）和英文（en_US）两种，默认为你的系统语言。
 * 可以在`config.ini`中配置是否快速安装，`fast_installed`默认为`False`，如果不需要使用GGUF模型，可以设置为`True`。
+* 在`config.ini`的`[API_KEYS]`中可设置`default_api_model`（如`gpt-4o-mini`）。当 API LLM 加载器的模型名设为`default`时，将使用该默认模型，便于在配置中统一切换默认模型而无需改工作流。
 * 可以使用以下方法之一配置APIKEY
 ### 方法一：
 1. 打开`comfyui_LLM_party`的项目文件夹下的`config.ini`文件。
@@ -146,7 +147,7 @@ ComfyUI LLM Party，从最基础的 LLM 多工具调用、角色设定快速搭�
 3. 如果你使用ollama模型，在`base_url`填入`http://127.0.0.1:11434/v1/`，在`openai_api_key`填入`ollama`，在`model_name`填入你的模型名称，例如:llama3。
 4. 如果你要使用谷歌搜索或者必应搜索工具，在`config.ini`输入你的`google_api_key`、`cse_id`或`bing_api_key`。
 5. 如果你要使用图片输入LLM，推荐使用图床imgbb，在`config.ini`输入你的`imgbb_api`。
-6. 每个模型都可以在`config.ini`文件中单独配置，可以参考`config.ini.example`文件填写。当你配置好之后，只需要在节点上输入`model_name`即可。
+6. 每个模型都可以在`config.ini`文件中单独配置，可以参考`config.ini.example`文件填写。当你配置好之后，只需要在节点上输入`model_name`即可；也可将`model_name`设为`default`以使用`config.ini`中的`default_api_model`。
 
 ### 方法二：
 1. 打开comfyui界面。

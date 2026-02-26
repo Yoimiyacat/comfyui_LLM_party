@@ -2,7 +2,7 @@
 
 <div align="center">
   <a href="https://space.bilibili.com/26978344">bilibili</a> ·
-  <a href="https://www.youtube.com/@LLM-party">youtube</a> ·
+  <a href="https://www.youtube.com/@comfyui-LLM-party">youtube</a> ·
   <a href="https://github.com/heshengtao/Let-LLM-party">テキストチュートリアル</a> ·
   <a href="https://pan.quark.cn/s/190b41f3bbdb">クラウドディスクのアドレス</a> ·
   <a href="img/Q群.jpg">QQグループ</a> ·
@@ -74,7 +74,7 @@ ComfyUI LLM Partyは、最も基本的なLLMの多ツール呼び出しやキャ
 <a href="https://space.bilibili.com/26978344">
   <img src="img/B.png" width="100" height="100" style="border-radius: 80%; overflow: hidden;" alt="octocat"/>
 </a>
-<a href="https://www.youtube.com/@LLM-party">
+<a href="https://www.youtube.com/@comfyui-LLM-party">
   <img src="img/YT.png" width="100" height="100" style="border-radius: 80%; overflow: hidden;" alt="octocat"/>
 </a>
 
@@ -116,7 +116,8 @@ ComfyUI LLM Partyは、最も基本的なLLMの多ツール呼び出しやキャ
 * [百度云アドレス](https://pan.baidu.com/share/init?surl=T4aEB4HumdJ7iVbvsv1vzA&pwd=qyhu)、抽出コード：qyhu
 
 ## ダウンロード
-以下のいずれかの方法でインストールしてください。
+* `config.ini`で言語を設定できます。現在は中国語（zh_CN）と英語（en_US）のみで、デフォルトはシステム言語です。
+* 以下のいずれかの方法でインストールしてください。
 ### 方法1：
 1. [comfyuiマネージャー](https://github.com/ltdrdata/ComfyUI-Manager)で`comfyui_LLM_party`を検索し、一回のクリックでインストールします。
 2. comfyuiを再起動します。
@@ -137,6 +138,7 @@ ComfyUI LLM Partyは、最も基本的なLLMの多ツール呼び出しやキャ
 ## 設定
 * `config.ini`に言語を設定することが可能です。現在は中国語（zh_CN）と英語（en_US）の2種類のみがサポートされています。デフォルトはお使いのシステム言語です。
 * `config.ini`に迅速インストールの設定が可能です。`fast_installed`のデフォルトは`False`であり、GGUFモデルを使用しない場合は`True`に設定できます。
+* `config.ini`の`[API_KEYS]`で`default_api_model`（例：`gpt-4o-mini`）を設定できます。API LLMローダーのモデル名が`default`の場合、このモデルが使用されます。ワークフローを変更せずに一箇所でデフォルトのAPIモデルを切り替えられます。
 * 以下のいずれかの方法でAPIKEYを設定できます。
 ### 方法一：
 1. `comfyui_LLM_party`のプロジェクトフォルダ内の`config.ini`ファイルを開きます。
@@ -144,7 +146,7 @@ ComfyUI LLM Partyは、最も基本的なLLMの多ツール呼び出しやキャ
 3. ollamaモデルを使用する場合は、`base_url`に`http://127.0.0.1:11434/v1/`を入力し、`openai_api_key`に`ollama`を、`model_name`にはあなたのモデル名（例：llama3）を入力します。
 4. Google検索またはBing検索ツールを使用する場合は、`config.ini`にあなたの`google_api_key`、`cse_id`または`bing_api_key`を入力します。
 5. 画像入力LLMを使用する場合は、画像ホスティングサービスのimgbbを推奨し、`config.ini`にあなたの`imgbb_api`を入力します。
-6. 各モデルは`config.ini`ファイル内で個別に設定でき、`config.ini.example`ファイルを参考に記入できます。設定が完了したら、ノードに`model_name`を入力するだけで済みます。
+6. 各モデルは`config.ini`ファイル内で個別に設定でき、`config.ini.example`ファイルを参考に記入できます。設定が完了したら、ノードに`model_name`を入力するだけで済みます。`model_name`を`default`に設定すると、`config.ini`の`default_api_model`を使用できます。
 
 ### 方法二：
 1. comfyuiインターフェースを開きます。
@@ -200,7 +202,7 @@ ComfyUI LLM Partyは、最も基本的なLLMの多ツール呼び出しやキャ
 
 ### 私たちをフォローする
 1. このプロジェクトの最新機能を継続的にフォローしたい方は、Bilibiliアカウントをフォローしてください：[派酱](https://space.bilibili.com/26978344)
-2. [youtube@LLM-party](https://www.youtube.com/@LLM-party)
+2. [youtube@comfyui-LLM-party](https://www.youtube.com/@comfyui-LLM-party)
 
 ## スター履歴
 

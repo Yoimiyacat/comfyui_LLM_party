@@ -1,6 +1,8 @@
 [API_KEYS]
 openai_api_key = sk-XXXXX
 base_url = https://api.openai.com/v1/
+# When API LLM loader model_name is set to "default", this model is used (e.g. gpt-4o-mini)
+default_api_model = gpt-4o-mini
 google_api_key = google_api_key_put_here
 cse_id = Google_cse_id_put_here
 bing_api_key = bing_api_key_put_here

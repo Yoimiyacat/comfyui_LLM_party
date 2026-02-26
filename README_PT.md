@@ -2,7 +2,7 @@
 
 <div align="center">
   <a href="https://space.bilibili.com/26978344">bilibili</a> ·
-  <a href="https://www.youtube.com/@LLM-party">youtube</a> ·
+  <a href="https://www.youtube.com/@comfyui-LLM-party">youtube</a> ·
   <a href="https://github.com/heshengtao/Let-LLM-party">Tutorial em texto</a> ·
   <a href="https://pan.quark.cn/s/190b41f3bbdb">Endereço do disco em nuvem</a> ·
   <a href="img/Q群.jpg">Grupo do QQ</a> ·
@@ -74,7 +74,7 @@ ComfyUI LLM Party permite desde a chamada de múltiplas ferramentas LLM, configu
 <a href="https://space.bilibili.com/26978344">
   <img src="img/B.png" width="100" height="100" style="border-radius: 80%; overflow: hidden;" alt="octocat"/>
 </a>
-<a href="https://www.youtube.com/@LLM-party">
+<a href="https://www.youtube.com/@comfyui-LLM-party">
   <img src="img/YT.png" width="100" height="100" style="border-radius: 80%; overflow: hidden;" alt="octocat"/>
 </a>
 
@@ -115,7 +115,8 @@ ComfyUI LLM Party permite desde a chamada de múltiplas ferramentas LLM, configu
 * [Link do Baidu Cloud](https://pan.baidu.com/share/init?surl=T4aEB4HumdJ7iVbvsv1vzA&pwd=qyhu), código de extração: qyhu
 
 ## Download
-Utilize um dos métodos abaixo para instalar
+* Você pode configurar o idioma em `config.ini`, atualmente apenas chinês (zh_CN) e inglês (en_US), o padrão é o idioma do seu sistema.
+* Utilize um dos métodos abaixo para instalar
 ### Método 1:
 1. No [gerenciador comfyui](https://github.com/ltdrdata/ComfyUI-Manager), pesquise por `comfyui_LLM_party` e instale com um clique
 2. Reinicie o comfyui
@@ -136,6 +137,7 @@ Utilize um dos métodos abaixo para instalar
 ## Configuração
 * É possível configurar o idioma no `config.ini`, atualmente existem apenas duas opções: chinês (zh_CN) e inglês (en_US), sendo o idioma padrão o do seu sistema.
 * É possível configurar no `config.ini` se deseja uma instalação rápida; `fast_installed` está configurado por padrão como `False`. Se você não precisa utilizar o modelo GGUF, pode defini-lo como `True`.
+* Em `config.ini` na seção `[API_KEYS]` você pode definir `default_api_model` (por exemplo `gpt-4o-mini`). Quando o nome do modelo do carregador API LLM estiver definido como `default`, este modelo será usado. Isso permite alternar o modelo API padrão em um só lugar sem alterar os fluxos de trabalho.
 * Você pode configurar o APIKEY utilizando um dos métodos a seguir:
 ### Método Um:
 1. Abra o arquivo `config.ini` na pasta do projeto `comfyui_LLM_party`.
@@ -143,7 +145,7 @@ Utilize um dos métodos abaixo para instalar
 3. Se você estiver utilizando o modelo ollama, insira `http://127.0.0.1:11434/v1/` em `base_url`, coloque `ollama` em `openai_api_key` e insira o nome do seu modelo em `model_name`, por exemplo: llama3.
 4. Se você deseja utilizar ferramentas de busca do Google ou Bing, insira seu `google_api_key`, `cse_id` ou `bing_api_key` no `config.ini`.
 5. Se você pretende usar entrada de imagem para LLM, recomenda-se o uso do serviço de hospedagem de imagens imgbb, insira seu `imgbb_api` no `config.ini`.
-6. Cada modelo pode ser configurado separadamente no arquivo `config.ini`, utilizando como referência o arquivo `config.ini.example`. Após a configuração, basta inserir `model_name` no nó.
+6. Cada modelo pode ser configurado separadamente no arquivo `config.ini`, utilizando como referência o arquivo `config.ini.example`. Após a configuração, basta inserir `model_name` no nó. Você também pode definir `model_name` como `default` para usar o `default_api_model` do `config.ini`.
 
 ### Método Dois:
 1. Abra a interface do comfyui.
@@ -199,7 +201,7 @@ Se houver problemas com o plugin ou se você tiver outras dúvidas, sinta-se à 
 
 ### Siga-nos
 1. Se desejar acompanhar as últimas funcionalidades deste projeto, fique à vontade para seguir nossa conta no Bilibili: [派酱](https://space.bilibili.com/26978344)
-2. [youtube@LLM-party](https://www.youtube.com/@LLM-party)
+2. [youtube@comfyui-LLM-party](https://www.youtube.com/@comfyui-LLM-party)
 
 ## Histórico de Estrelas
 

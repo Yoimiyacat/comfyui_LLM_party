@@ -183,3 +183,18 @@ chatTTS_node.py
 file_control.py
 new_interpreter.py
 node.zip
+
+# Skill and similar redundant files (local/extensions, not for version control)
+skills/
+
+# Local sensitive data (keys, credentials, local config, etc.)
+*.key
+*.pem
+*.secret
+.env.*
+!.env.example
+credentials*.json
+*_credentials*.ini
+mcp_config.json
+**/secrets/
+**/*_local*.json
